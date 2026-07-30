@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffiya - Specialty Coffee Recipes</title>
+    <meta name="description" content="Discover the art of specialty coffee. Free recipes, brewing guides, and tips for the perfect cup.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-dark: #0F0A06;
+            --bg-section: #1A1209;
+            --bg-card: #231A10;
+            --cream: #F5E6CC;
+            --gold: #C9A66B;
+            --gold-light: #E0C99A;
+            --brown: #8B6914;
+            --brown-deep: #3D2B1F;
+            --text-light: #F5E6CC;
+            --text-muted: #A89580;
+            --white: #FFFFFF;
+            --accent: #D4A76A;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+        /* ========== NAVIGATION ========== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 10, 6, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(201, 166, 107, 0.2);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gold);
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-section) 50%, var(--brown-deep) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content { max-width: 600px; z-index: 1; }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--bg-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--cream);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary { background: var(--gold); color: var(--bg-dark); }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+        .btn-outline { border: 2px solid var(--gold); color: var(--gold); margin-left: 1rem; }
+        .btn-outline:hover { background: var(--gold); color: var(--bg-dark); }
+
+        .hero-image {
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--brown) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+
+        /* ========== SECTIONS ========== */
+        section { padding: 6rem 2rem; }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p { color: var(--text-muted); font-size: 1.1rem; }
+
+        /* ========== RECIPES ========== */
+        .recipes { background: var(--bg-section); }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .recipe-card {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 1px solid rgba(201, 166, 107, 0.1);
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(201, 166, 107, 0.3);
+        }
+
+        .recipe-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .recipe-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, var(--bg-card), transparent);
+        }
+
+        .recipe-content { padding: 1.5rem; }
+
+        .recipe-tag {
+            display: inline-block;
+            background: rgba(201, 166, 107, 0.2);
+            color: var(--gold);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .recipe-card h3 { font-size: 1.4rem; color: var(--cream); margin-bottom: 0.5rem; }
+        .recipe-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+
+        .recipe-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .recipe-meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+        /* ========== TIPS ========== */
+        .tips {
+            background: linear-gradient(135deg, var(--brown-deep) 0%, var(--bg-dark) 100%);
+            color: var(--text-light);
+        }
+
+        .tips .section-header h2 { color: var(--cream); }
+        .tips .section-header p { color: var(--text-muted); }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tip-card {
+            background: rgba(201, 166, 107, 0.08);
+            border: 1px solid rgba(201, 166, 107, 0.15);
+            border-radius: 1rem;
+            overflow: hidden;
+            text-align: center;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .tip-card:hover {
+            background: rgba(201, 166, 107, 0.12);
+            border-color: rgba(201, 166, 107, 0.3);
+        }
+
+        .tip-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .tip-content { padding: 1.5rem; }
+        .tip-card h3 { font-size: 1.2rem; margin-bottom: 0.75rem; color: var(--cream); }
+        .tip-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* ========== NEWSLETTER ========== */
+        .newsletter { background: var(--bg-dark); }
+
+        .newsletter-box {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .newsletter-box h2 { color: var(--cream); }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(201, 166, 107, 0.3);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--bg-card);
+            color: var(--text-light);
+        }
+
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { outline: none; border-color: var(--gold); }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: var(--gold);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover { background: var(--gold-light); }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--bg-section);
+            color: var(--text-muted);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(201, 166, 107, 0.1);
+        }
+
+        .footer-content { max-width: 800px; margin: 0 auto; }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--gold); }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(201, 166, 107, 0.1);
+            border: 1px solid rgba(201, 166, 107, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            text-decoration: none;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+            border-color: var(--gold);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(201, 166, 107, 0.1);
+        }
+
+        /* ========== MODAL ========== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            max-width: 650px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s;
+            border: 1px solid rgba(201, 166, 107, 0.2);
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            position: relative;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 1rem 1rem 0 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+        }
+
+        .modal-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(to top, rgba(35, 26, 16, 0.95), transparent);
+            border-radius: 1rem 1rem 0 0;
+        }
+
+        .modal-header > * { position: relative; z-index: 1; }
+
+        .modal-header h2 {
+            font-size: 1.6rem;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header .recipe-tag {
+            background: rgba(201, 166, 107, 0.3);
+            color: var(--gold);
+            width: fit-content;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(15, 10, 6, 0.8);
+            border: 1px solid rgba(201, 166, 107, 0.3);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            color: var(--gold);
+            z-index: 2;
+        }
+
+        .modal-close:hover { background: var(--gold); color: var(--bg-dark); }
+
+        .modal-body { padding: 2rem; }
+
+        .modal-section { margin-bottom: 1.75rem; }
+
+        .modal-section h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+
+        .modal-section ul, .modal-section ol {
+            padding-left: 1.25rem;
+            color: var(--text-light);
+        }
+
+        .modal-section li {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .modal-tip {
+            background: rgba(201, 166, 107, 0.1);
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid var(--gold);
+        }
+
+        .modal-tip strong { color: var(--gold); }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-dark);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                border-bottom: 1px solid rgba(201, 166, 107, 0.2);
+            }
+
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+            .hero { padding: 8rem 1.5rem 4rem; }
+            .hero-image { display: none; }
+
+            .recipes-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .btn-outline { margin-left: 0; margin-top: 1rem; }
+            .newsletter-form { flex-direction: column; }
+            .footer-links { flex-direction: column; gap: 1rem; }
+
+            .modal-overlay { padding: 1rem; }
+            .modal { max-height: 90vh; }
+            .modal-header { height: 160px; padding: 1.25rem; }
+            .modal-body { padding: 1.5rem; }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .recipes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">Coffiya</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#recipes">Recipes</a></li>
+            <li><a href="#tips">Brewing Tips</a></li>
+            <li><a href="#newsletter">Newsletter</a></li>
+        </ul>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">☕ Free Specialty Recipes</span>
+            <h1>Discover the Perfect Cup of Coffee</h1>
+            <p>Explore handcrafted recipes from around the world. From espresso classics to cold brew innovations — learn, brew, and share the art of specialty coffee.</p>
+            <div>
+                <a href="#recipes" class="btn btn-primary">Explore Recipes</a>
+                <a href="#tips" class="btn btn-outline">Brewing Guides</a>
+            </div>
+        </div>
+        <div class="hero-image"></div>
+    </section>
+
+    <!-- Featured Recipes -->
+    <section class="recipes" id="recipes">
+        <div class="section-header">
+            <h2>Featured Recipes</h2>
+            <p>Handpicked specialty coffee recipes to elevate your daily ritual</p>
+        </div>
+        <div class="recipes-grid">
+            <article class="recipe-card" onclick="openModal(0)">
+                <div class="recipe-image" style="background-image: url('https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=600&h=400&fit=crop')"></div>
+                <div class="recipe-content">
+                    <span class="recipe-tag">Espresso</span>
+                    <h3>Classic Italian Espresso</h3>
+                    <p>Master the art of a perfect double shot with this traditional Italian method.</p>
+                    <div class="recipe-meta">
+                        <span>⏱ 5 min</span>
+                        <span>📊 Beginner</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="recipe-card" onclick="openModal(1)">
+                <div class="recipe-image" style="background-image: url('https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&h=400&fit=crop')"></div>
+                <div class="recipe-content">
+                    <span class="recipe-tag">Cold Brew</span>
+                    <h3>Smooth Cold Brew Concentrate</h3>
+                    <p>A rich, low-acid cold brew perfect for hot summer days. Steep overnight for best results.</p>
+                    <div class="recipe-meta">
+                        <span>⏱ 12 hrs</span>
+                        <span>📊 Easy</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="recipe-card" onclick="openModal(2)">
+                <div class="recipe-image" style="background-image: url('https://images.unsplash.com/photo-1534778101976-62847782c213?w=600&h=400&fit=crop')"></div>
+                <div class="recipe-content">
+                    <span class="recipe-tag">Latte Art</span>
+                    <h3>Velvety Oat Milk Latte</h3>
+                    <p>Create cafe-quality latte art at home with this creamy oat milk technique.</p>
+                    <div class="recipe-meta">
+                        <span>⏱ 8 min</span>
+                        <span>📊 Intermediate</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="recipe-card" onclick="openModal(3)">
+                <div class="recipe-image" style="background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop')"></div>
+                <div class="recipe-content">
+                    <span class="recipe-tag">Pour Over</span>
+                    <h3>Chemex Clean Brew</h3>
+                    <p>A clean, bright cup using the Chemex pour-over method. Highlights fruity notes.</p>
+                    <div class="recipe-meta">
+                        <span>⏱ 6 min</span>
+                        <span>📊 Beginner</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="recipe-card" onclick="openModal(4)">
+                <div class="recipe-image" style="background-image: url('https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=600&h=400&fit=crop')"></div>
+                <div class="recipe-content">
+                    <span class="recipe-tag">Specialty</span>
+                    <h3>Honey Cinnamon Cortado</h3>
+                    <p>A sweet and spicy twist on the classic cortado. Perfect for cozy mornings.</p>
+                    <div class="recipe-meta">
+                        <span>⏱ 5 min</span>
+                        <span>📊 Easy</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="recipe-card" onclick="openModal(5)">
+                <div class="recipe-image" style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&h=400&fit=crop')"></div>
+                <div class="recipe-content">
+                    <span class="recipe-tag">Turkish</span>
+                    <h3>Traditional Turkish Coffee</h3>
+                    <p>Experience the centuries-old method of brewing Turkish coffee in a cezve.</p>
+                    <div class="recipe-meta">
+                        <span>⏱ 10 min</span>
+                        <span>📊 Intermediate</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Brewing Tips -->
+    <section class="tips" id="tips">
+        <div class="section-header">
+            <h2>Brewing Tips</h2>
+            <p>Essential knowledge to transform your coffee game</p>
+        </div>
+        <div class="tips-grid">
+            <div class="tip-card">
+                <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop" alt="Hot coffee being poured" class="tip-image">
+                <div class="tip-content">
+                    <h3>Water Quality Matters</h3>
+                    <p>Use filtered water at 195-205°F. Bad water = bad coffee, no matter how good your beans are.</p>
+                </div>
+            </div>
+            <div class="tip-card">
+                <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=300&fit=crop" alt="Coffee beans" class="tip-image">
+                <div class="tip-content">
+                    <h3>Measure Your Beans</h3>
+                    <p>Aim for a 1:15 coffee-to-water ratio. A kitchen scale is a barista's best friend.</p>
+                </div>
+            </div>
+            <div class="tip-card">
+                <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?w=400&h=300&fit=crop" alt="Fresh coffee cups" class="tip-image">
+                <div class="tip-content">
+                    <h3>Freshness is Key</h3>
+                    <p>Grind just before brewing. Use beans within 2-4 weeks of roasting for peak flavor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter" id="newsletter">
+        <div class="newsletter-box">
+            <h2>Get Weekly Recipes</h2>
+            <p>Join our community of coffee lovers. Receive new recipes, brewing tips, and origin stories every week.</p>
+            <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Coffiya</div>
+            <p>Celebrating the art of specialty coffee, one recipe at a time.</p>
+            <ul class="footer-links">
+                <li><a href="#recipes">Recipes</a></li>
+                <li><a href="#tips">Brewing Tips</a></li>
+                <li><a href="#newsletter">Newsletter</a></li>
+            </ul>
+            <div class="social-links">
+                <a href="#" aria-label="Instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="#" aria-label="X (Twitter)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" aria-label="YouTube">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
+            </div>
+            <p class="copyright">&copy; 2026 Coffiya. Brewed with love.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+        <div class="modal" id="modal">
+            <div class="modal-header" id="modalHeader">
+                <button class="modal-close" onclick="closeModal()" aria-label="Close modal">✕</button>
+                <h2 id="modalTitle"></h2>
+                <span class="recipe-tag" id="modalTag"></span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h4>Equipment</h4>
+                    <ul id="modalEquipment"></ul>
+                </div>
+                <div class="modal-section">
+                    <h4>Ingredients</h4>
+                    <ul id="modalIngredients"></ul>
+                </div>
+                <div class="modal-section">
+                    <h4>Steps</h4>
+                    <ol id="modalSteps"></ol>
+                </div>
+                <div class="modal-section">
+                    <div class="modal-tip">
+                        <strong>Pro Tip:</strong> <span id="modalTip"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const recipes = [
+            {
+                image: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=600&h=400&fit=crop",
+                name: "Classic Italian Espresso",
+                tag: "Espresso",
+                equipment: ["Espresso machine", "Burr grinder", "Tamper", "Scale"],
+                ingredients: ["18g coffee beans (fine grind)", "36ml hot water (200°F)"],
+                steps: [
+                    "Grind 18g beans to a fine, powdery consistency.",
+                    "Dose into portafilter and tamp firmly and level.",
+                    "Lock in and extract for 25-30 seconds.",
+                    "Serve immediately in a warm demitasse cup."
+                ],
+                tip: "Use freshly roasted beans (within 2-4 weeks) for the best crema and flavor."
+            },
+            {
+                image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&h=400&fit=crop",
+                name: "Smooth Cold Brew Concentrate",
+                tag: "Cold Brew",
+                equipment: ["Large jar or container", "Fine mesh strainer", "Paper filter", "Scale"],
+                ingredients: ["100g coarse-ground coffee", "700ml cold filtered water"],
+                steps: [
+                    "Combine coffee and cold water in a jar.",
+                    "Stir gently, cover, and steep in fridge for 12-24 hours.",
+                    "Strain through mesh strainer, then paper filter.",
+                    "Dilute 1:1 with water or milk before serving."
+                ],
+                tip: "The concentrate keeps in the fridge for up to 2 weeks. Serve over ice."
+            },
+            {
+                image: "https://images.unsplash.com/photo-1534778101976-62847782c213?w=600&h=400&fit=crop",
+                name: "Velvety Oat Milk Latte",
+                tag: "Latte Art",
+                equipment: ["Espresso machine", "Milk frothing pitcher", "Thermometer"],
+                ingredients: ["Double espresso shot", "200ml oat milk (Oatly Barista preferred)"],
+                steps: [
+                    "Pull a double espresso shot into your cup.",
+                    "Steam oat milk to 150°F with microfoam texture.",
+                    "Tap pitcher to remove big bubbles, swirl to polish.",
+                    "Pour slowly into espresso, starting high then low."
+                ],
+                tip: "Oatly Barista Edition froths best. Keep the steam wand just below the surface."
+            },
+            {
+                image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop",
+                name: "Chemex Clean Brew",
+                tag: "Pour Over",
+                equipment: ["Chemex brewer", "Paper filter", "Gooseneck kettle", "Scale", "Timer"],
+                ingredients: ["30g medium-coarse coffee", "500ml hot water (205°F)"],
+                steps: [
+                    "Rinse paper filter with hot water, discard rinse.",
+                    "Add coffee, start timer, bloom with 60ml water for 30s.",
+                    "Pour in slow circles, adding water in stages.",
+                    "Total brew time should be 4-5 minutes."
+                ],
+                tip: "A gooseneck kettle gives you the best control over pour speed and pattern."
+            },
+            {
+                image: "https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=600&h=400&fit=crop",
+                name: "Honey Cinnamon Cortado",
+                tag: "Specialty",
+                equipment: ["Espresso machine", "Small glass (4-6oz)", "Milk frother"],
+                ingredients: ["Double espresso shot", "60ml steamed milk", "1 tsp honey", "Pinch of cinnamon"],
+                steps: [
+                    "Warm honey slightly so it flows easily.",
+                    "Pull double espresso into the glass.",
+                    "Steam milk to velvety microfoam.",
+                    "Combine espresso and milk, drizzle honey, dust cinnamon."
+                ],
+                tip: "Adjust honey to taste. Add cinnamon last so it floats on top."
+            },
+            {
+                image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&h=400&fit=crop",
+                name: "Traditional Turkish Coffee",
+                tag: "Turkish",
+                equipment: ["Cezve or ibrik", "Small coffee cups", "Scale", "Small spoon"],
+                ingredients: ["10g extra-fine ground coffee", "70ml cold water", "Sugar (optional)"],
+                steps: [
+                    "Add water, coffee, and sugar to cezve (off heat).",
+                    "Stir to combine, then place on low heat.",
+                    "Heat slowly until foam rises — do not stir after this.",
+                    "Pour into cups immediately, let grounds settle before drinking."
+                ],
+                tip: "Never stir after foam forms. The coffee grounds settle at the bottom — don't drink the last sip."
+            }
+        ];
+
+        function openModal(index) {
+            const r = recipes[index];
+            document.getElementById('modalHeader').style.backgroundImage = `url('${r.image}')`;
+            document.getElementById('modalTitle').textContent = r.name;
+            document.getElementById('modalTag').textContent = r.tag;
+
+            document.getElementById('modalEquipment').innerHTML =
+                r.equipment.map(item => `<li>${item}</li>`).join('');
+
+            document.getElementById('modalIngredients').innerHTML =
+                r.ingredients.map(item => `<li>${item}</li>`).join('');
+
+            document.getElementById('modalSteps').innerHTML =
+                r.steps.map(step => `<li>${step}</li>`).join('');
+
+            document.getElementById('modalTip').textContent = r.tip;
+
+            const overlay = document.getElementById('modalOverlay');
+            overlay.style.display = 'flex';
+            requestAnimationFrame(() => overlay.classList.add('active'));
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const overlay = document.getElementById('modalOverlay');
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        function closeModalOutside(e) {
+            if (e.target === document.getElementById('modalOverlay')) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input').value;
+            alert(`Welcome to Coffiya! We'll send recipes to ${email}`);
+            e.target.reset();
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
