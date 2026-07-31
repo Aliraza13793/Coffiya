@@ -143,16 +143,19 @@
         .btn-outline { border: 2px solid var(--gold); color: var(--gold); margin-left: 1rem; }
         .btn-outline:hover { background: var(--gold); color: var(--bg-dark); }
 
-        .hero-image {
+        .hero-c-logo {
             position: absolute;
-            right: -100px;
+            right: -50px;
             top: 50%;
             transform: translateY(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--brown) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.2;
+            width: 400px;
+            height: 450px;
+            opacity: 0.8;
+        }
+
+        .hero-c-logo svg {
+            width: 100%;
+            height: 100%;
         }
 
         /* ========== SECTIONS ========== */
@@ -533,7 +536,7 @@
             .nav-links.active { display: flex; }
             .menu-toggle { display: block; }
             .hero { padding: 8rem 1.5rem 4rem; }
-            .hero-image { display: none; }
+            .hero-c-logo { display: none; }
 
             .recipes-grid {
                 grid-template-columns: 1fr;
@@ -592,7 +595,18 @@
                 <a href="#tips" class="btn btn-outline">Brewing Guides</a>
             </div>
         </div>
-        <div class="hero-image"></div>
+        <div class="hero-c-logo">
+            <svg viewBox="0 0 300 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Large stylized C with coffee bean curve -->
+                <path d="M250 60C210 20 140 5 80 30C20 55 -15 130 10 210C35 290 110 340 190 320C240 307 275 255 275 195" 
+                      stroke="#C9A66B" stroke-width="18" stroke-linecap="round" fill="none" opacity="0.3"/>
+                <path d="M250 60C210 20 140 5 80 30C20 55 -15 130 10 210C35 290 110 340 190 320C240 307 275 255 275 195" 
+                      stroke="#C9A66B" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.15"/>
+                <!-- Inner coffee bean detail -->
+                <ellipse cx="145" cy="185" rx="35" ry="50" fill="#C9A66B" opacity="0.1"/>
+                <path d="M145 145C138 165 138 205 145 225" stroke="#C9A66B" stroke-width="3" stroke-linecap="round" opacity="0.2"/>
+            </svg>
+        </div>
     </section>
 
     <!-- Featured Recipes -->
