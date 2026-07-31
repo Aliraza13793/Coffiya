@@ -49,45 +49,11 @@
 - Time estimate
 - Difficulty level
 - Hover effect (lift + shadow)
-- Click opens modal with full recipe
 
-### 3.3.1 Recipe Modal
-Clicking a recipe card opens a centered modal with full recipe details.
-
-**Modal structure:**
-- Close button (X) top-right
-- Recipe emoji + name
-- Equipment list (bullet points)
-- Ingredients list (bullet points)
-- Steps (numbered list, short summary)
-- Pro tip section
-
-**Modal behavior:**
-- Opens on card click (fade in)
-- Closes on: X click, overlay click, or ESC key
-- Scrollable content for long recipes
-- Full-width on mobile devices
-
-**Recipe content (short summaries):**
-
-1. **Classic Italian Espresso** — Equipment: espresso machine, grinder, tamper. Ingredients: 18g fine coffee, 36ml water. Steps: Grind, dose, tamp, extract 25-30s. Tip: Fresh beans = best crema.
-
-2. **Smooth Cold Brew Concentrate** — Equipment: jar, strainer, filter. Ingredients: 100g coarse coffee, 700ml cold water. Steps: Combine, steep 12-24hrs, strain. Tip: Dilute 1:1 with water or milk before serving.
-
-3. **Velvety Oat Milk Latte** — Equipment: espresso machine, frother. Ingredients: double shot, 200ml oat milk. Steps: Pull shot, steam milk to microfoam, pour. Tip: Oatly Barista Edition froths best.
-
-4. **Chemex Clean Brew** — Equipment: Chemex, paper filter, kettle. Ingredients: 30g medium-coarse coffee, 500ml water. Steps: Rinse filter, bloom 30s, pour in circles. Tip: Gooseneck kettle gives best control.
-
-5. **Honey Cinnamon Cortado** — Equipment: espresso machine, small glass. Ingredients: double shot, 60ml steamed milk, 1 tsp honey, pinch cinnamon. Steps: Warm honey, pull shot, steam milk, combine, dust cinnamon. Tip: Adjust honey to taste.
-
-6. **Traditional Turkish Coffee** — Equipment: cezve/ibrik, small cups. Ingredients: 10g extra-fine coffee, 70ml water, sugar optional. Steps: Combine in cezve, heat slowly until foam rises, serve immediately. Tip: Never stir after foam forms.
-
-### 3.4 Brewing Tips (3 cards with images)
-1. **Water Quality Matters** — filtered water, 195-205°F (image: pour-over coffee)
-2. **Measure Your Beans** — 1:15 ratio, use a scale (image: coffee beans close-up)
-3. **Freshness is Key** — grind before brewing, 2-4 week window (image: coffee bag)
-
-Each card has a real photo on top, heading, and description below.
+### 3.4 Brewing Tips (3 cards)
+1. **Water Quality Matters** — filtered water, 195-205°F
+2. **Measure Your Beans** — 1:15 ratio, use a scale
+3. **Freshness is Key** — grind before brewing, 2-4 week window
 
 ### 3.5 Newsletter Signup
 - Headline: "Get Weekly Recipes"
@@ -97,27 +63,25 @@ Each card has a real photo on top, heading, and description below.
 ### 3.6 Footer
 - Logo and tagline
 - Navigation links
-- Social media icons (SVG icons: Instagram, X/Twitter, YouTube)
+- Social media icons (Instagram, Twitter, YouTube)
 - Copyright notice
-- No emojis — uses inline SVG icons
 
 ---
 
 ## 4. Design System
 
-### 4.1 Color Palette (Dark Premium Theme)
+### 4.1 Color Palette
 | Name | Hex | Usage |
 |------|-----|-------|
-| Background Dark | #0F0A06 | Page background |
-| Background Section | #1A1209 | Section backgrounds |
-| Background Card | #231A10 | Card backgrounds |
-| Cream | #F5E6CC | Headings, primary text |
-| Gold | #C9A66B | Primary accent, buttons, tags |
-| Gold Light | #E0C99A | Hover states |
-| Brown Deep | #3D2B1F | Hero gradient, tips section |
-| Text Light | #F5E6CC | Body text |
-| Text Muted | #A89580 | Descriptions, secondary text |
-| White | #FFFFFF | Modal text |
+| Cream | #FDF6EC | Page background |
+| Warm Brown | #6B4423 | Primary accent, buttons |
+| Dark Brown | #3D2314 | Headings, footer |
+| Amber | #D4A574 | Cards, highlights |
+| Light Amber | #E8C9A0 | Borders, tags |
+| Soft Orange | #C98B5E | Secondary accent |
+| Text Dark | #2C1810 | Body text |
+| Text Muted | #6B5B4F | Descriptions |
+| White | #FFFFFF | Card backgrounds |
 
 ### 4.2 Typography
 - **Headings:** Playfair Display (serif) — elegant, warm
@@ -133,17 +97,10 @@ Each card has a real photo on top, heading, and description below.
 - Generous whitespace throughout
 
 ### 4.4 Components
-- **Buttons:** rounded, gold primary (filled) and outline variants
-- **Cards:** dark card background, real photo with gradient overlay, content area, meta row
-- **Tags:** small pill badges with gold accent on dark background
-- **Form inputs:** dark background, gold border on focus
-
-### 4.5 Images
-- **Source:** Unsplash (free, no attribution required)
-- **Recipe cards:** Real coffee photography (6 unique images)
-- **Card display:** background-image with gradient overlay
-- **Modal header:** Same recipe image as background
-- **Image size:** 600x400px crops via Unsplash URL parameters
+- **Buttons:** rounded, primary (filled) and outline variants
+- **Cards:** cream background, image area, content area, meta row
+- **Tags:** small pill badges with light amber background
+- **Form inputs:** bordered, rounded, focus state
 
 ---
 
@@ -187,31 +144,25 @@ coffee/index.html       ← built from spec
 
 ## 9. Future Enhancements (Out of Scope)
 
-- [x] Add real coffee photography — DONE (Unsplash images, verified working)
+- [ ] Add real coffee photography
 - [ ] Individual recipe detail pages
-- [ ] Light mode toggle (currently dark-only)
+- [ ] Dark mode toggle
 - [ ] Search/filter recipes
 - [ ] User comments or ratings
 - [ ] E-commerce integration
-- [ ] Image lazy loading for performance
-- [ ] Offline support (PWA)
 
 ---
 
 ## 10. Success Criteria
 
 - [ ] All 6 recipe cards render correctly
-- [ ] All 6 modals open and close properly
-- [ ] Modal closes on ESC key and overlay click
 - [ ] All 3 brewing tips display
 - [ ] Newsletter form validates email
 - [ ] Mobile menu toggles properly
 - [ ] Smooth scroll works for all nav links
 - [ ] Page loads fast (< 1s)
 - [ ] Readable on mobile (320px+)
-- [ ] Responsive on tablet (768px)
-- [ ] Responsive on desktop (1024px+)
 
 ---
 
-*Last updated: 2026-07-31 — v2.1 (Tip images + SVG footer icons)*
+*Last updated: 2026-07-31*
