@@ -22,9 +22,15 @@
 ## 3. Website Sections
 
 ### 3.1 Navigation
-- Fixed top navbar with logo + links
+- Fixed top navbar with SVG logo + links
 - Mobile hamburger menu
 - Smooth scroll to sections
+
+### Logo Design
+- Capital "C" with coffee bean curve styling
+- Coffee bean shape as the "o" in Coffiya
+- Gold (#C9A66B) color on dark background
+- Inline SVG, appears in navbar and footer
 
 ### 3.2 Hero
 - Brand headline and subheadline
